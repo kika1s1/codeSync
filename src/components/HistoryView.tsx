@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { ExternalLink, Clock, Code, Trash2, RefreshCw } from 'lucide-react';
 
 interface Submission {

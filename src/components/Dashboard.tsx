@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { CheckCircle, AlertCircle, Clock, ExternalLink, RefreshCw } from 'lucide-react';
+import  { useState, useEffect } from 'react';
+import { CheckCircle, Clock, ExternalLink, RefreshCw } from 'lucide-react';
 
 interface DashboardProps {
   selectedRepo: string;
@@ -31,7 +31,7 @@ export default function Dashboard({ selectedRepo }: DashboardProps) {
       const history = result.submissionHistory || [];
       
       const today = new Date().toDateString();
-      const todaySubmissions = history.filter((submission: any) => 
+      const todaySubmissions = history.filter((submission: { timestamp: number }) => 
         new Date(submission.timestamp).toDateString() === today
       ).length;
 

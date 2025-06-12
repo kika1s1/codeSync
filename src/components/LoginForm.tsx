@@ -86,6 +86,7 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
 
       onLogin(user, selectedRepo);
     } catch (err) {
+      console.error('Error saving credentials:', err);
       setError('Failed to save credentials');
       setIsLoading(false);
     }

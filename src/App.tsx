@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Github, Settings, History, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import  { useState, useEffect } from 'react';
+import { Github, Settings, History, CheckCircle,  Loader } from 'lucide-react';
 import LoginForm from './components/LoginForm';
 import Dashboard from './components/Dashboard';
 import HistoryView from './components/HistoryView';
@@ -55,6 +55,7 @@ function App() {
         setState(prev => ({ ...prev, isLoading: false }));
       }
     } catch (error) {
+      console.error('Error checking auth status:', error);
       setState(prev => ({ ...prev, isLoading: false }));
     }
   };
