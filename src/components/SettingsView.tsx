@@ -103,14 +103,27 @@ export default function SettingsView({ user, selectedRepo, onLogout }: SettingsP
         </div>
       </div>
 
-      {/* File Organization */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <h4 className="font-medium text-blue-900 mb-2">File Organization</h4>
-        <div className="text-sm text-blue-800 space-y-1">
-          <div>LeetCode: <code className="bg-blue-100 px-1 rounded">leetcode/{'{'}difficulty{'}'}/{'{'}problem{'}'}.{'{'}ext{'}'}</code></div>
-          <div>Codeforces: <code className="bg-blue-100 px-1 rounded">codeforces/{'{'}div{'}'}/contest_{'{'}id{'}'}/{'{'}problem{'}'}.{'{'}ext{'}'}</code></div>
+    {/* File Organization */}
+    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <h4 className="font-medium text-blue-900 mb-2">File Organization</h4>
+      <div className="font-mono text-sm text-blue-800 space-y-2">
+        {/* LeetCode Tree */}
+        <div>
+          <div>📁 leetcode</div>
+          <div className="ml-4">📁 difficulty</div>
+          <div className="ml-8">📄 problem.ext</div>
+        </div>
+        
+        {/* Codeforces Tree */}
+        <div>
+          <div>📁 codeforces</div>
+          <div className="ml-4">📁 div</div>
+          <div className="ml-8">📁 contest_id</div>
+          <div className="ml-12">📄 problem.ext</div>
         </div>
       </div>
+    </div>
+
 
       {/* Danger Zone */}
       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
