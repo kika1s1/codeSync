@@ -7,7 +7,6 @@
     }
 
     init() {
-      console.log('LeetCode detector initialized');
       // Watch for navigation changes in SPA
       this.observePageChanges();
       this.checkCurrentPage();
@@ -19,7 +18,6 @@
       const urlObserver = new MutationObserver(() => {
         if (window.location.href !== currentUrl) {
           currentUrl = window.location.href;
-          console.log('LeetCode page changed:', currentUrl);
           this.checkCurrentPage();
         }
       });

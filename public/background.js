@@ -10,8 +10,6 @@ class GitHubService {
   }
 
   async pushToGitHub(submission) {
-    console.log('Pushing submission to GitHub:', submission);
-    
     try {
       const { githubToken, githubUsername, selectedRepo } = await this.getStoredCredentials();
       
@@ -22,9 +20,6 @@ class GitHubService {
       const filePath = this.generateFilePath(submission);
       const content = this.prepareFileContent(submission);
       const encodedContent = btoa(unescape(encodeURIComponent(content)));
-
-      console.log('Generated file path:', filePath);
-      console.log('Content length:', content.length);
 
       // Check if file exists
       const fileExists = await this.checkFileExists(githubUsername, selectedRepo, filePath, githubToken);
@@ -38,9 +33,6 @@ class GitHubService {
       if (fileExists) {
         payload.sha = fileExists.sha;
         payload.message = `Update ${submission.platform}: ${submission.title}`;
-        console.log('File exists, updating...');
-      } else {
-        console.log('Creating new file...');
       }
 
       const response = await fetch(`${this.baseURL}/repos/${selectedRepo}/contents/${filePath}`, {
@@ -57,12 +49,11 @@ class GitHubService {
       if (!response.ok) {
         const errorData = await response.json();
         console.error('GitHub API error:', errorData);
-        console.log("fuck you ",selectedRepo, githubUsername, filePath, payload);
+        console.error('Request details:', { selectedRepo, githubUsername, filePath, payload });
         throw new Error(`GitHub API error: ${response.status} - ${errorData.message}` || 'Unknown error');
       }
 
       const result = await response.json();
-      console.log('GitHub push successful:', result);
       
       // Show success notification
       chrome.notifications.create({
@@ -130,7 +121,6 @@ class GitHubService {
   }
 
   prepareFileContent(submission) {
-    console.log("this is prepareFileContent", submission);
     const timestamp = new Date().toISOString();
     const problemUrl = submission.url || '';
     
@@ -161,7 +151,6 @@ class GitHubService {
       }
       return null;
     } catch (error) {
-      console.log('File does not exist:', path);
       return null;
     }
   }
@@ -182,7 +171,6 @@ class GitHubService {
     }
     
     await chrome.storage.local.set({ submissionHistory: historyList });
-    console.log('Added to history:', submission.title);
   }
 
   async testGitHubConnection(token) {
@@ -210,14 +198,9 @@ const githubService = new GitHubService();
 
 // Listen for messages from content scripts
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log('Background received message:', request);
-  console.log(request.type, request.data);
-
-  
   if (request.type === 'submission') {
     githubService.pushToGitHub(request.data)
       .then(result => {
-        console.log('Push successful:', result);
         sendResponse({ success: true, result });
       })
       .catch(error => {
@@ -247,5 +230,5 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 // Handle extension installation
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('CodeSync extension installed');
+  // Extension installed successfully
 });

@@ -6,7 +6,6 @@ class CodeforcesDetector {
   }
 
   init() {
-    console.log('Codeforces detector initialized');
     this.observePageChanges();
     this.checkCurrentPage();
   }
